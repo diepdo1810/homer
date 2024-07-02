@@ -12,8 +12,10 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
     "bulma": "^1.0.1",
+    "gsap": "^3.12.5",
     "lodash.merge": "^4.6.2",
     "vue": "^3.4.26",
+    "vue-svgicon": "^3.3.2",
     "yaml": "^2.4.5"
   },
   "devDependencies": {

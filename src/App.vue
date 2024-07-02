@@ -99,6 +99,10 @@
             </template>
           </div>
 
+          <!-- Daily tracks card -->
+          <DailyTracksCard
+            :item="config.dailyTracks" />
+
           <!-- Vertical layout -->
           <div
             v-if="!filter && vlayout"
@@ -156,6 +160,7 @@ import SearchInput from "./components/SearchInput.vue";
 import SettingToggle from "./components/SettingToggle.vue";
 import DarkMode from "./components/DarkMode.vue";
 import DynamicTheme from "./components/DynamicTheme.vue";
+import DailyTracksCard from "./components/DailyTracksCard.vue";
 
 import defaultConfig from "./assets/defaults.yml?raw";
 
@@ -171,6 +176,7 @@ export default {
     SettingToggle,
     DarkMode,
     DynamicTheme,
+    DailyTracksCard,
   },
   data: function () {
     return {

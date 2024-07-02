@@ -11,6 +11,11 @@
       class="message-body"
       v-html="message.content"
     ></div>
+    <div
+      v-if="message.excerpt"
+      class="message-body"
+      v-html="message.excerpt"
+    ></div>
   </article>
 </template>
 
@@ -46,18 +51,32 @@ export default {
         return;
       }
       if (this.item.url) {
-        let fetchedMessage = await this.downloadMessage(this.item.url);
+        const options = {};
+        if (this.item.headers) {
+          // map headers from config into fetch options
+          options.headers = {};
+          for (const header in this.item.headers) {
+            options.headers[header] = this.item.headers[header];
+          }
+        }
+        let fetchedMessage = await this.downloadMessage(this.item.url, options);
         if (this.item.mapping) {
           fetchedMessage = this.mapRemoteMessage(fetchedMessage);
+        }
+        if (this.item.mappingMultiple) {
+          for (const prop of ["data"]) {
+            fetchedMessage = fetchedMessage[prop][0];
+          }
         }
 
         // keep the original config value if no value is provided by the endpoint
         const message = this.message;
-        for (const prop of ["title", "style", "content", "icon"]) {
+        for (const prop of ["title", "style", "content", "icon", "excerpt"]) {
           if (prop in fetchedMessage && fetchedMessage[prop] !== null) {
             message[prop] = fetchedMessage[prop];
           }
         }
+
         this.message = { ...message }; // Force computed property to re-evaluate
       }
 
@@ -66,8 +85,8 @@ export default {
       }
     },
 
-    downloadMessage: function (url) {
-      return fetch(url).then(function (response) {
+    downloadMessage: function (url, options = {}) {
+      return fetch(url, options).then(function (response) {
         if (response.status != 200) {
           return;
         }
