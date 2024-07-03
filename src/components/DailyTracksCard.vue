@@ -1,7 +1,6 @@
 <template>
-    <NeteaseCloudMusic />
     <div class="for-you-row">
-        <div class="daily-recommend-card" @click="goToDailyTracks">
+        <div class="daily-recommend-card">
             <img :src="coverUrl" loading="lazy" alt="" />
                 <div class="container">
                 <div class="title-box">
@@ -11,9 +10,7 @@
                     </div>
                 </div>
             </div>
-            <button class="play-button" @click.stop="playDailyTracksVn">
-                <svg fill="#000000" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="40px" height="40px" viewBox="0 0 5 5" enable-background="new 0 0 100 100" xml:space="preserve"><g><path d="M3.849 2.5c0 -0.042 -0.024 -0.079 -0.058 -0.098L1.327 0.98a0.112 0.112 0 0 0 -0.064 -0.02 0.112 0.112 0 0 0 -0.112 0.112c0 0.004 0.001 0.008 0.001 0.013h-0.001v2.857h0.001a0.112 0.112 0 0 0 0.111 0.1 0.11 0.11 0 0 0 0.056 -0.015l0.001 0.002L3.794 2.599l-0.001 -0.002A0.112 0.112 0 0 0 3.849 2.5"/></g></svg> 
-            </button>
+            <NeteaseCloudMusic />
         </div>
     </div>
 </template>
@@ -118,6 +115,7 @@ img {
 
 <script>
 import NeteaseCloudMusic from "./services/NeteaseCloudMusic.vue";
+import sample from 'lodash/sample';
 
 const defaultCovers = [
   'https://p2.music.126.net/0-Ybpa8FrDfRgKYCTJD8Xg==/109951164796696795.jpg',
@@ -130,15 +128,9 @@ export default {
   components: {
     NeteaseCloudMusic,
   },
-  props: {
-    coverUrl: String,
-  },
-  methods: {
-    goToDailyTracks() {
-      this.$router.push({ name: "DailyTracks" });
-    },
-    playDailyTracksVn() {
-      this.$store.dispatch("playDailyTracksVn");
+  computed: {
+    coverUrl() {
+      return sample(defaultCovers) + '?param=1024y1024';
     },
   },
 };

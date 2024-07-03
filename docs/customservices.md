@@ -497,3 +497,14 @@ You need to set the type to HomeAssistant, provide an api key and enable cors on
 ```
 To create an API token on HomeAssistant, follow the [official documentation here](https://developers.home-assistant.io/docs/auth_api/#long-lived-access-token).  
 To enable cors on HomeAssistant, edit your `configuration.yml` and add the IP of Homer to `https: cors_allowed_origins`
+
+## NeteaseCloudMusic
+
+``` yaml
+- name: "NeteaseCloudMusic"
+  logo: "assets/tools/sample.png"
+  urL: "<---insert-url-here--->"
+  apikey: "<---insert-api-key-here--->"
+  host: "<---insert-host-here--->"
+```
+  
