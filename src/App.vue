@@ -103,6 +103,7 @@
           <DailyTracksCard
             :item="config.dailyTracks" />
 
+
           <!-- Vertical layout -->
           <div
             v-if="!filter && vlayout"
