@@ -16,7 +16,7 @@
     "lodash.merge": "^4.6.2",
     "vue": "^3.4.26",
     "vue-svgicon": "^3.3.2",
-    "yaml": "^2.4.5",
+    "yaml": "^2.4.5"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.8.0",
