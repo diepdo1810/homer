@@ -113,7 +113,6 @@ img {
 
 <script>
 import { search, getSongUrl } from "../../api/NeteaseCloudMusic/others";
-import sample from "lodash/sample";
 
 const defaultCovers = [
   "https://p2.music.126.net/0-Ybpa8FrDfRgKYCTJD8Xg==/109951164796696795.jpg",
@@ -131,7 +130,8 @@ export default {
   },
   computed: {
     coverUrl() {
-      return sample(defaultCovers) + "?param=1024y1024";
+      // random cover:
+      return defaultCovers[Math.floor(Math.random() * defaultCovers.length)] + "?param=1024y1024";
     },
   },
   data() {
