@@ -1,7 +1,9 @@
 <template>
-  <div class="for-you-row">
-    <NeteaseCloudMusic />
-    <Spotify />
+  <div class="container">
+    <div class="for-you-row">
+        <NeteaseCloudMusic />
+        <Spotify />
+    </div>
   </div>
 </template>
 

@@ -38,10 +38,13 @@ export default {
         }
     },
     async created() {
-        this.show = await show();
-        if (this.show && this.show.items) {
-            this.getIds();
-        }
+        this.getIds();
+        /**TODO
+            this.show = await show();
+            if (this.show && this.show.items) {
+                this.getIds();
+            }
+        */
     },
     watch: {
         show() {
@@ -50,7 +53,21 @@ export default {
     },
     methods: {
         getIds() {
+            const ids = [
+                "4hvcd3Mkb24ZPZPUJw7lIB",
+                "4UnjKMbmRMB5cLsdg4Gl8S",
+                "1m8rGGK5rTzxDMLNraE01p",
+                "3RXSGeHE2QQrvfYy4OsPaq",
+                "4FmCqPgcl5Padi13Boglgk",
+                "02rIKG3D1dYx9zDNLFNQ1z",
+                "1L1lvtr52aAkSY0P5viKea",
+                "0zwLdqoHWF35XMyNJ6H1nk",
+                "5sSP1jLU5lndD62Fzjn8Hg"
+            ]
+            /**TODO
             this.ids = this.show.items.map(item => item.id);
+             */
+            this.ids = ids;
         },
         setSrc(id) {
             return `https://open.spotify.com/embed/episode/${id}?utm_source=generator&theme=0&t=0`;

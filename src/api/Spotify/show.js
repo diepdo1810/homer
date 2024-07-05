@@ -11,7 +11,6 @@ const limit = 10;
 setTimeout(async () => {
   const token = await getToken();
   console.log('Token has expired, fetching new token', token);
-  
 }, 3000000);
 
 export async function show() {
