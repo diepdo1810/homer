@@ -5,19 +5,20 @@ const headers = await getHeaders();
 const API_BASE_URL = await getBaseUrl();
 */
 const headers = getHeaders();
-const API_BASE_URL = await getBaseUrl();
+const API_BASE_URL = getBaseUrl();
 
 export async function search(params) {
-  const url = (await getBaseUrl()) + "/search";
+  const url = API_BASE_URL + "/search";
+  const query = new URLSearchParams(params);
   try {
-    const response = await fetch(url, headers);
+    const response = await fetch(`${url}?${query}`, headers);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Fetch error:', error);
+    console.error("Fetch error:", error);
     throw error;
   }
 }

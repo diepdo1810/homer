@@ -131,7 +131,10 @@ export default {
   computed: {
     coverUrl() {
       // random cover:
-      return defaultCovers[Math.floor(Math.random() * defaultCovers.length)] + "?param=1024y1024";
+      return (
+        defaultCovers[Math.floor(Math.random() * defaultCovers.length)] +
+        "?param=1024y1024"
+      );
     },
   },
   data() {
