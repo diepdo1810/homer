@@ -1,3 +1,4 @@
+/**
 import {getHeaders, getBaseUrl, getItems } from './config';
 import getToken from './client';
 
@@ -34,3 +35,4 @@ export async function show() {
       console.error('There was a problem with the fetch operation:', error);
     });
 }
+ */

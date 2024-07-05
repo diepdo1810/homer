@@ -1,3 +1,4 @@
+/**
 import { getItems } from './config';
 
 const items = await getItems();
@@ -33,3 +34,4 @@ export default async function getToken() {
         console.error('There was a problem with the fetch operation:', error);
     });
 }
+ */

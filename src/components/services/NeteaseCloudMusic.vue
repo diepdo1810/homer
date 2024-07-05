@@ -92,102 +92,105 @@ img {
 </style>
 
 <template>
-    <div class="daily-recommend-card">
-            <img :src="coverUrl" loading="lazy" alt="" />
-                <div class="container">
-                <div class="title-box">
-                    <div class="title">
-                    <span>Every</span>
-                    <span>Day</span>
-                    </div>
-                </div>
-            </div>
-            <button :class="class" @click="togglePlay">
-                <img :src="isPlaying ? 'assets/icons/pause.svg' : 'assets/icons/play.svg' " :alt="isPlaying ? 'Pause tracks' : 'Play tracks' ">
-            </button>
+  <div class="daily-recommend-card">
+    <img :src="coverUrl" loading="lazy" alt="" />
+    <div class="container">
+      <div class="title-box">
+        <div class="title">
+          <span>Every</span>
+          <span>Day</span>
         </div>
+      </div>
+    </div>
+    <button class="play-button" @click="togglePlay">
+      <img
+        :src="isPlaying ? 'assets/icons/pause.svg' : 'assets/icons/play.svg'"
+        :alt="isPlaying ? 'Pause tracks' : 'Play tracks'"
+      />
+    </button>
+  </div>
 </template>
 
 <script>
-import { search, getSongUrl } from '../../api/NeteaseCloudMusic/others';
-import sample from 'lodash/sample';
+import { search, getSongUrl } from "../../api/NeteaseCloudMusic/others";
+import sample from "lodash/sample";
 
 const defaultCovers = [
-  'https://p2.music.126.net/0-Ybpa8FrDfRgKYCTJD8Xg==/109951164796696795.jpg',
-  'https://p2.music.126.net/QxJA2mr4hhb9DZyucIOIQw==/109951165422200291.jpg',
-  'https://p1.music.126.net/AhYP9TET8l-VSGOpWAKZXw==/109951165134386387.jpg',
+  "https://p2.music.126.net/0-Ybpa8FrDfRgKYCTJD8Xg==/109951164796696795.jpg",
+  "https://p2.music.126.net/QxJA2mr4hhb9DZyucIOIQw==/109951165422200291.jpg",
+  "https://p1.music.126.net/AhYP9TET8l-VSGOpWAKZXw==/109951165134386387.jpg",
 ];
 
 export default {
-    name: "NeteaseCloudMusic",
-    props: {
-        class: {
-            type: String,
-            default: 'play-button'
-        }
+  name: "NeteaseCloudMusic",
+  props: {
+    class: {
+      type: String,
+      default: "play-button",
     },
-    computed: {
-        coverUrl() {
-            return sample(defaultCovers) + '?param=1024y1024';
-        },
+  },
+  computed: {
+    coverUrl() {
+      return sample(defaultCovers) + "?param=1024y1024";
     },
-    data() {
-        return {
-            tracks: [],
-            urls: [],
-            ids: [],
-            loading: true,
-            isPlaying: false,
-            audio: null
-        };
+  },
+  data() {
+    return {
+      tracks: [],
+      urls: [],
+      ids: [],
+      loading: true,
+      isPlaying: false,
+      audio: null,
+    };
+  },
+  async mounted() {
+    await this.loadDailyTracks();
+    await this.loadUrlTracks();
+  },
+  watch: {
+    isPlaying(newVal) {
+      if (newVal) {
+        this.playDailyTracksVn();
+      } else {
+        this.stopDailyTracksVn();
+      }
     },
-    async mounted() {
-        await this.loadDailyTracks();
-        await this.loadUrlTracks();
+  },
+  methods: {
+    async loadDailyTracks() {
+      const response = await search({ keywords: "HKT", limit: 1 });
+      this.tracks = response.result.songs;
     },
-    watch: {
-        isPlaying(newVal) {
-            if (newVal) {
-                this.playDailyTracksVn();
-            } else {
-                this.stopDailyTracksVn();
-            }
-        }
+    async loadUrlTracks() {
+      const tracks = this.tracks;
+      const ids = tracks.map((track) => track.id);
+      this.ids.push(ids);
+      // download mp3:
+      for (const id of ids) {
+        const response = await getSongUrl(id);
+        this.urls.push(response.data[0].url);
+      }
     },
-    methods: {
-        async loadDailyTracks() {
-            const response = await search({ keywords: 'HKT', limit: 1 });
-            this.tracks = response.result.songs;
-        },
-        async loadUrlTracks() {
-            const tracks = this.tracks;
-            const ids = tracks.map(track => track.id);
-            this.ids.push(ids);
-            // download mp3:
-            for (const id of ids) {
-                const response = await getSongUrl(id);
-                this.urls.push(response.data[0].url);
-            }
-        },
-        playDailyTracksVn() {
-            // start playing the tracks:
-            if (!this.audio) {
-                this.audio = new Audio();
-            }
-            if (this.urls.length > 0) {
-                this.audio.src = this.urls[0];
-                this.audio.play();
-            }
-        },
-        stopDailyTracksVn() {
-            // stop playing the tracks:
-            if (this.audio) {
-                this.audio.pause();
-            }
-        },
-        togglePlay() {
-            this.isPlaying = !this.isPlaying;
-        }
-    }
-}
+    playDailyTracksVn() {
+      // start playing the tracks:
+      if (!this.audio) {
+        this.audio = new Audio();
+      }
+      if (this.urls.length > 0) {
+        this.audio.src = this.urls[0];
+        this.audio.play();
+      }
+    },
+    stopDailyTracksVn() {
+      // stop playing the tracks:
+      if (this.audio) {
+        this.audio.pause();
+      }
+    },
+    togglePlay() {
+      this.isPlaying = !this.isPlaying;
+    },
+  },
+};
 </script>

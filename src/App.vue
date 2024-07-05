@@ -127,13 +127,12 @@
               />
             </div>
           </div>
-                                     
+
           <!-- Perfect Day -->
           <PerfectDay />
 
           <!-- Daily tracks card -->
-          <DailyTracksCard
-            :item="config.dailyTracks" />
+          <DailyTracksCard :item="config.dailyTracks" />
         </div>
       </div>
     </section>
