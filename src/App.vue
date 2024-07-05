@@ -127,10 +127,6 @@
               />
             </div>
           </div>
-
-          <!-- Perfect Day -->
-          <PerfectDay />
-
           <!-- Daily tracks card -->
           <DailyTracksCard :item="config.dailyTracks" />
         </div>
@@ -163,7 +159,6 @@ import SettingToggle from "./components/SettingToggle.vue";
 import DarkMode from "./components/DarkMode.vue";
 import DynamicTheme from "./components/DynamicTheme.vue";
 import DailyTracksCard from "./components/DailyTracksCard.vue";
-import PerfectDay from "./components/PerfectDay.vue";
 
 import defaultConfig from "./assets/defaults.yml?raw";
 
@@ -180,7 +175,6 @@ export default {
     DarkMode,
     DynamicTheme,
     DailyTracksCard,
-    PerfectDay,
   },
   data: function () {
     return {

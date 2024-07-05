@@ -5,17 +5,6 @@
     :key="id"
     v-show="currentIndex === index"
   >
-    <iframe
-      style="border-radius: 12px"
-      :src="setSrc(id)"
-      width="100%"
-      height="152"
-      title="Spotify Embed"
-      allowfullscreen=""
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy"
-    >
-    </iframe>
     <div class="text-center">
       <button @click="prev" :disable="currentIndex === 0">
         <img
@@ -38,14 +27,21 @@
         />
       </button>
     </div>
+    <iframe
+      style="border-radius: 12px"
+      :src="setSrc(id)"
+      width="100%"
+      height="152"
+      title="Spotify Embed"
+      allowfullscreen=""
+      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+      loading="lazy"
+    >
+    </iframe>
   </div>
 </template>
 
 <style scoped>
-.daily-meditate {
-  display: flex;
-  justify-content: space-between;
-}
 .text-center {
   display: flex;
   justify-content: left;
@@ -70,11 +66,11 @@ export default {
   async created() {
     this.getIds();
     /**TODO
-            this.show = await show();
-            if (this.show && this.show.items) {
-                this.getIds();
-            }
-        */
+              this.show = await show();
+              if (this.show && this.show.items) {
+                  this.getIds();
+              }
+          */
   },
   watch: {
     show() {
@@ -95,8 +91,8 @@ export default {
         "5sSP1jLU5lndD62Fzjn8Hg",
       ];
       /**TODO
-            this.ids = this.show.items.map(item => item.id);
-             */
+              this.ids = this.show.items.map(item => item.id);
+               */
       this.ids = ids;
     },
     setSrc(id) {

@@ -1,7 +1,10 @@
 <template>
-  <div class="container">
-    <div class="for-you-row">
-      <NeteaseCloudMusic />
+  <div class="columns is-multiline layout-vertical">
+    <div class="column is-4">
+      <h2 class="group-title">
+        <i class="fa-fw fa-solid fa-music"></i>
+        PerfectDay
+      </h2>
       <Spotify />
     </div>
   </div>
@@ -16,13 +19,11 @@
 </style>
 
 <script>
-import NeteaseCloudMusic from "./services/NeteaseCloudMusic.vue";
 import Spotify from "./services/Spotify.vue";
 
 export default {
   name: "DailyTracksCard",
   components: {
-    NeteaseCloudMusic,
     Spotify,
   },
 };

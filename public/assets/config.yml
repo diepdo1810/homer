@@ -11,10 +11,10 @@ header: true
 footer: '<p>Diep with <span class="has-text-danger">❤️</span>chiaser</p>' # set false if you want to hide it.
 
 # Optional theme customization
-theme: walkxcode
+# theme: walkxcode
 
 # Optional theme customization (color overrrides)
-# overrrides can also be done using CSS vars 
+# overrrides can also be done using CSS vars
 colors:
   light:
     highlight-primary: "#3367d6"
@@ -45,17 +45,17 @@ colors:
 
 # Optional message
 message:
-  #url: https://news-api14.p.rapidapi.com/v2/trendings?topic=Sports&language=vi&limit=1
+  url: https://news-api14.p.rapidapi.com/v2/trendings?topic=Sports&language=vi&limit=1
   mapping:
   mappingMultiple:
-      data:
-          title: "title"
+    data:
+      title: "title"
   title: "Hello, world"
   excerpt: "News erverday"
   headers:
-      method: "GET" 
-      x-rapidapi-key: "26fb5326c5msh6221da226d99a2ep11ad09jsne7213e24a69b"
-      x-rapidapi-host: "news-api14.p.rapidapi.com"
+    method: "GET"
+    x-rapidapi-key: "26fb5326c5msh6221da226d99a2ep11ad09jsne7213e24a69b"
+    x-rapidapi-host: "news-api14.p.rapidapi.com"
 
 # Optional navbar
 # links: [] # Allows for navbar (dark mode, layout, and search) without any links
@@ -72,7 +72,7 @@ links:
   # see url field and assets/additional-page.yml.dist used in this example:
   #- name: "another page!"
   #  icon: "fas fa-file-alt"
-  #  url: "#additional-page" 
+  #  url: "#additional-page"
 
 # Services
 # First level array represent a group.
@@ -80,23 +80,23 @@ links:
 services:
   - name: "Weathers"
     icon: "fa-solid fa-sun"
-    items:   
-    - name: "Weather"
-      location: "Hanoi, VN" # your location.
-      locationId: "1581130" # Optional: Specify OpenWeatherMap city ID for better accuracy
-      apikey: "bad014fb6464152ee7ac73870b6b6c27" # insert your own API key here. Request one from https://openweathermap.org/api.
-      units: "metric" # units to display temperature. Can be one of: metric, imperial, kelvin. Defaults to kelvin.
-      background: "circle" # choose which type of background you want behind the image. Can be one of: square, circle, none. Defaults to none.
-      type: "OpenWeather"
-      tag: "weather"
-      target: "_blank" # optional html a tag target attribute
+    items:
+      - name: "Weather"
+        location: "Hanoi, VN" # your location.
+        locationId: "1581130" # Optional: Specify OpenWeatherMap city ID for better accuracy
+        apikey: "bad014fb6464152ee7ac73870b6b6c27" # insert your own API key here. Request one from https://openweathermap.org/api.
+        units: "metric" # units to display temperature. Can be one of: metric, imperial, kelvin. Defaults to kelvin.
+        background: "circle" # choose which type of background you want behind the image. Can be one of: square, circle, none. Defaults to none.
+        type: "OpenWeather"
+        tag: "weather"
+        target: "_blank" # optional html a tag target attribute
 
-## API 
+## API
 api:
   - name: "NeteaseCloudMusic"
     url: "https://netease-cloud-music-api1.p.rapidapi.com"
     headers:
-      method: "GET" 
+      method: "GET"
       x-rapidapi-key: "823c4fa9d6msh8fcbfbe287db1adp1959c4jsn0ed30e4ff84b"
       x-rapidapi-host: "netease-cloud-music-api1.p.rapidapi.com"
   - name: "Spotify"
@@ -108,4 +108,4 @@ api:
         id: "3vhBp6pPJEYgGfOXGU8ogu"
         clientId: "71945cc771554ea789b95d3e83d41acb"
         clientSecret: "beaf0f210dc14c0ab082af7f316ce9e8"
-        endpoint: "https://accounts.spotify.com" 
+        endpoint: "https://accounts.spotify.com"
