@@ -1,4 +1,8 @@
 <template>
+  <h3 class="group-title">Preview</h3>
+  <div id="aplayer"></div>
+
+  <h3 class="group-title">Full</h3>
   <div
     class="daily-meditate"
     v-for="(id, index) in ids"
@@ -55,50 +59,36 @@
 </style>
 
 <script>
-// import { show } from "../../api/Spotify/show";
+import { parse } from "yaml";
+import "aplayer/dist/APlayer.min.css";
+import APlayer from "aplayer";
 
 export default {
   name: "Spotify",
   data() {
     return {
-      show: null,
       ids: [],
       currentIndex: 0,
       isLoading: false,
+      clientId: "",
+      clientSecret: "",
+      endpoint: "",
+      refreshToken: "",
+      url: "",
     };
   },
   async created() {
-    this.getIds();
-    /**TODO
-            this.show = await show();
-            if (this.show && this.show.items) {
-                this.getIds();
-            }
-        */
-  },
-  watch: {
-    show() {
-      this.getIds();
-    },
+    await this.getItems();
+
+    // set timeout to 30 minutes
+    setInterval(() => {
+      console.log("Refreshing token");
+      this.getRefreshToken();
+    }, 1800000);
+
+    await this.getShowDetails();
   },
   methods: {
-    getIds() {
-      const ids = [
-        "4hvcd3Mkb24ZPZPUJw7lIB",
-        "4UnjKMbmRMB5cLsdg4Gl8S",
-        "1m8rGGK5rTzxDMLNraE01p",
-        "3RXSGeHE2QQrvfYy4OsPaq",
-        "4FmCqPgcl5Padi13Boglgk",
-        "02rIKG3D1dYx9zDNLFNQ1z",
-        "1L1lvtr52aAkSY0P5viKea",
-        "0zwLdqoHWF35XMyNJ6H1nk",
-        "5sSP1jLU5lndD62Fzjn8Hg",
-      ];
-      /**TODO
-            this.ids = this.show.items.map(item => item.id);
-             */
-      this.ids = ids;
-    },
     setSrc(id) {
       return `https://open.spotify.com/embed/episode/${id}?utm_source=generator&theme=0&t=0`;
     },
@@ -110,6 +100,127 @@ export default {
     prev() {
       if (this.currentIndex > 0) {
         this.currentIndex--;
+      }
+    },
+    getConfig(path = "assets/config.yml") {
+      return fetch(path).then((response) => {
+        if (response.status == 404 || response.redirected) {
+          this.configNotFound = true;
+          return {};
+        }
+
+        if (!response.ok) {
+          throw Error(`${response.statusText}: ${response.body}`);
+        }
+
+        const that = this;
+        return response
+          .text()
+          .then((body) => {
+            return parse(body, { merge: true });
+          })
+          .then(function (config) {
+            if (config.externalConfig) {
+              return that.getConfig(config.externalConfig);
+            }
+            return config;
+          });
+      });
+    },
+    async getServiceApi(name = "Spotify") {
+      return await this.getConfig().then((config) => {
+        return config.api.find((item) => item.name === name);
+      });
+    },
+    async getShowDetails() {
+      const idWeb5ngay = localStorage.getItem("id_web5ngay") || "";
+      const url = localStorage.getItem("url_spotify") || "";
+
+      const payload = {
+        method: "GET",
+        headers: {
+          Authorization:
+            "Bearer " + localStorage.getItem("access_token_spotify"),
+        },
+      };
+
+      await fetch(`${url}/shows/${idWeb5ngay}`, payload)
+        .then((response) => response.json())
+        .then((data) => {
+          new APlayer({
+            container: document.getElementById("aplayer"),
+            mini: false,
+            autoplay: false,
+            theme: "#FADFA3",
+            loop: "all",
+            order: "random",
+            preload: "auto",
+            volume: 0.7,
+            listFolded: false,
+            listMaxHeight: 90,
+            lrcType: 3,
+            audio: data.episodes.items.map((item) => ({
+              name: item.name,
+              artist: data.publisher,
+              url: item.audio_preview_url,
+              cover: item.images[1].url,
+              theme: "#FADFA3",
+            })),
+          });
+
+          const ids = data.episodes.items.map((item) => item.id);
+          this.ids = ids;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    },
+    async getItems() {
+      const services = await this.getServiceApi();
+      const config = services.items[0];
+
+      this.clientId = config.clientId || "";
+      this.clientSecret = config.clientSecret || "";
+      this.endpoint = config.endpoint || "";
+      this.refreshToken = config.refreshToken || "";
+
+      localStorage.setItem("client_id_spotify", this.clientId);
+      localStorage.setItem("client_secret_spotify", this.clientSecret);
+      localStorage.setItem("endpoint_spotify", this.endpoint);
+      localStorage.setItem("refresh_token_spotify", this.refreshToken);
+      localStorage.setItem("url_spotify", services.url);
+      localStorage.setItem("id_web5ngay", config.id);
+    },
+    async getRefreshToken() {
+      const refreshToken = localStorage.getItem("refresh_token_spotify") || "";
+      const url = this.endpoint + "/api/token" || "";
+
+      const payload = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization:
+            "Basic " + btoa(`${this.clientId}:${this.clientSecret}`),
+        },
+        body: new URLSearchParams({
+          grant_type: "refresh_token",
+          refresh_token: refreshToken,
+        }),
+      };
+
+      const response = await fetch(url, payload)
+        .then((response) => response.json())
+        .then((data) => {
+          return data;
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
+      if (response && response.access_token) {
+        localStorage.setItem("access_token_spotify", response.access_token);
+      } else {
+        console.error("Failed to refresh token", response);
       }
     },
   },

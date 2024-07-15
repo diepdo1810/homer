@@ -109,3 +109,4 @@ api:
         clientId: "71945cc771554ea789b95d3e83d41acb"
         clientSecret: "beaf0f210dc14c0ab082af7f316ce9e8"
         endpoint: "https://accounts.spotify.com"
+        refreshToken: "AQDoYXtHnYU3tt3m3Jcd59KvqCr6p5CfpZcY8pEPoys_SXAdgdCxiZbsYeIsnViME7lJjIGabKnr7M86FsJ04hBqD7YgjRP8GmDgCtjLanQaGLuFYx9sDLPohaCKr40Glgk"  
