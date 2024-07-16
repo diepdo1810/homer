@@ -1,46 +1,52 @@
 <template>
-  <h3 class="group-title">Preview</h3>
-  <div id="aplayer"></div>
+  <button class="custom-btn btn-12" @click="getRefreshToken">
+    <span>Click!</span>
+    <span>Read More</span>
+  </button>
+  <div class="content">
+    <h3 class="group-title">Preview</h3>
+    <div id="aplayer"></div>
 
-  <h3 class="group-title">Full</h3>
-  <div
-    class="daily-meditate"
-    v-for="(id, index) in ids"
-    :key="id"
-    v-show="currentIndex === index"
-  >
-    <iframe
-      style="border-radius: 12px"
-      :src="setSrc(id)"
-      width="100%"
-      height="152"
-      title="Spotify Embed"
-      allowfullscreen=""
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy"
+    <h3 class="group-title">Full</h3>
+    <div
+      class="daily-meditate"
+      v-for="(id, index) in ids"
+      :key="id"
+      v-show="currentIndex === index"
     >
-    </iframe>
-    <div class="text-center">
-      <button @click="prev" :disable="currentIndex === 0">
-        <img
-          :src="
-            currentIndex === 0
-              ? 'assets/icons/previous.svg'
-              : 'assets/icons/previous.svg'
-          "
-          alt="previous"
-        />
-      </button>
-      <button @click="next" :disable="currentIndex === ids.length - 1">
-        <img
-          :src="
-            currentIndex !== ids.length - 1
-              ? 'assets/icons/next.svg'
-              : 'assets/icons/next.svg'
-          "
-          alt="next"
-        />
-      </button>
+      <iframe
+        style="border-radius: 12px"
+        :src="setSrc(id)"
+        width="100%"
+        height="152"
+        title="Spotify Embed"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      >
+      </iframe>
+      <div class="text-center">
+        <button @click="prev" :disable="currentIndex === 0">
+          <img
+            :src="
+              currentIndex === 0
+                ? 'assets/icons/previous.svg'
+                : 'assets/icons/previous.svg'
+            "
+            alt="previous"
+          />
+        </button>
+        <button @click="next" :disable="currentIndex === ids.length - 1">
+          <img
+            :src="
+              currentIndex !== ids.length - 1
+                ? 'assets/icons/next.svg'
+                : 'assets/icons/next.svg'
+            "
+            alt="next"
+          />
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -79,13 +85,6 @@ export default {
   },
   async created() {
     await this.getItems();
-
-    // set timeout to 30 minutes
-    setInterval(() => {
-      console.log("Refreshing token");
-      this.getRefreshToken();
-    }, 1800000);
-
     await this.getShowDetails();
   },
   methods: {
@@ -226,3 +225,97 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+button {
+  margin: 20px;
+}
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+/* 12 */
+.btn-12{
+  position: relative;
+  right: 20px;
+  bottom: 20px;
+  border:none;
+  box-shadow: none;
+  width: 130px;
+  height: 40px;
+  line-height: 42px;
+  -webkit-perspective: 230px;
+  perspective: 230px;
+}
+.btn-12 span {
+  background: rgb(0,172,238);
+background: linear-gradient(0deg, rgba(0,172,238,1) 0%, rgba(2,126,251,1) 100%);
+  display: block;
+  position: absolute;
+  width: 130px;
+  height: 40px;
+  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  border-radius: 5px;
+  margin:0;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+.btn-12 span:nth-child(1) {
+  box-shadow:
+   -7px -7px 20px 0px #fff9,
+   -4px -4px 5px 0px #fff9,
+   7px 7px 20px 0px #0002,
+   4px 4px 5px 0px #0001;
+  -webkit-transform: rotateX(90deg);
+  -moz-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+  -webkit-transform-origin: 50% 50% -20px;
+  -moz-transform-origin: 50% 50% -20px;
+  transform-origin: 50% 50% -20px;
+}
+.btn-12 span:nth-child(2) {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+  -webkit-transform-origin: 50% 50% -20px;
+  -moz-transform-origin: 50% 50% -20px;
+  transform-origin: 50% 50% -20px;
+}
+.btn-12:hover span:nth-child(1) {
+  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+}
+.btn-12:hover span:nth-child(2) {
+  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+ color: transparent;
+  -webkit-transform: rotateX(-90deg);
+  -moz-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+}
+</style>
