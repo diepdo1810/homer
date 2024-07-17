@@ -3,18 +3,20 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand">
-          <a
-            role="button"
+          <button
             aria-label="menu"
             aria-expanded="false"
             class="navbar-burger"
             :class="{ 'is-active': showMenu }"
-            v-on:click="$emit('navbar-toggle')"
+            @click="$emit('navbar-toggle')"
+            @keypress="$emit('navbar-toggle')"
+            @keydown="$emit('navbar-toggle')"
+            @keyup="$emit('navbar-toggle')"
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
-          </a>
+          </button>
         </div>
         <div class="navbar-menu" :class="{ 'is-active': showMenu }">
           <div class="navbar-start">

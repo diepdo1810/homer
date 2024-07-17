@@ -31,6 +31,8 @@
         :links="config.links"
         @navbar-toggle="showMenu = !showMenu"
       >
+        <SpotifyMode />
+
         <DarkMode
           @updated="isDark = $event"
           :defaultValue="this.config.defaults.colorTheme"
@@ -157,10 +159,12 @@ import Message from "./components/Message.vue";
 import SearchInput from "./components/SearchInput.vue";
 import SettingToggle from "./components/SettingToggle.vue";
 import DarkMode from "./components/DarkMode.vue";
+import SpotifyMode from "./components/SpotifyMode.vue";
 import DynamicTheme from "./components/DynamicTheme.vue";
 import DailyTracksCard from "./components/DailyTracksCard.vue";
 
 import defaultConfig from "./assets/defaults.yml?raw";
+import Spotify from "./components/services/Spotify.vue";
 
 export default {
   name: "App",
@@ -173,6 +177,7 @@ export default {
     SearchInput,
     SettingToggle,
     DarkMode,
+    SpotifyMode,
     DynamicTheme,
     DailyTracksCard,
   },

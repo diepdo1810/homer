@@ -1,9 +1,9 @@
 <template>
-  <button class="custom-btn btn-12" @click="getRefreshToken">
+  <button class="custom-btn btn-12 hiden" @click="getRefreshToken">
     <span>Click!</span>
     <span>Read More</span>
   </button>
-  <div class="content">
+  <div class="content" v-if="isLoading">
     <h3 class="group-title">Preview</h3>
     <div id="aplayer"></div>
 
@@ -36,9 +36,13 @@
       </div>
     </div>
   </div>
+  <div v-else>LOADING...</div>
 </template>
 
 <style scoped>
+.hiden {
+  display: none !important;
+}
 .text-center {
   display: flex;
   justify-content: center;
@@ -160,6 +164,9 @@ export default {
   async created() {
     await this.getItems();
     await this.getShowDetails();
+  },
+  mounted() {
+    this.isLoading = !!localStorage.getItem("access_token_spotify");
   },
   methods: {
     setSrc(id) {
