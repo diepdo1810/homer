@@ -45,7 +45,7 @@ colors:
 
 # Optional message
 message:
-  #url: https://news-api14.p.rapidapi.com/v2/trendings?topic=Sports&language=vi&limit=1
+  url: https://news-api14.p.rapidapi.com/v2/trendings?topic=Sports&language=vi&limit=1
   mapping:
   mappingMultiple:
     data:
@@ -84,7 +84,7 @@ services:
       - name: "Weather"
         location: "Hanoi, VN" # your location.
         locationId: "1581130" # Optional: Specify OpenWeatherMap city ID for better accuracy
-        #apikey: "bad014fb6464152ee7ac73870b6b6c27" # insert your own API key here. Request one from https://openweathermap.org/api.
+        apikey: "bad014fb6464152ee7ac73870b6b6c27" # insert your own API key here. Request one from https://openweathermap.org/api.
         units: "metric" # units to display temperature. Can be one of: metric, imperial, kelvin. Defaults to kelvin.
         background: "circle" # choose which type of background you want behind the image. Can be one of: square, circle, none. Defaults to none.
         type: "OpenWeather"
