@@ -4,10 +4,14 @@
     <span>Read More</span>
   </button>
   <div class="content" v-if="isLoading">
-    <h3 class="group-title">Preview</h3>
+    <div class="group-title">
+      <img src="/public/assets/icons/preview.svg" alt="preview">
+    </div>
     <div id="aplayer"></div>
 
-    <h3 class="group-title">Full</h3>
+    <div class="group-title">
+      <img src="/public/assets/icons/full.svg" alt="full">
+    </div>
     <div
       class="daily-meditate"
       v-for="(id, index) in ids"
@@ -252,6 +256,7 @@ export default {
           this.ids = ids;
         })
         .catch((error) => {
+          this.isLoading = false;
           console.error("Error:", error);
         });
     },
