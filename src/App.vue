@@ -164,7 +164,6 @@ import DynamicTheme from "./components/DynamicTheme.vue";
 import DailyTracksCard from "./components/DailyTracksCard.vue";
 
 import defaultConfig from "./assets/defaults.yml?raw";
-import Spotify from "./components/services/Spotify.vue";
 
 export default {
   name: "App",

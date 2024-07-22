@@ -1,4 +1,4 @@
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
 .daily-recommend-card {
   border-radius: 1rem;
   height: 198px;
@@ -196,4 +196,4 @@ export default {
     },
   },
 };
-</script>
+</script> -->
