@@ -4,32 +4,15 @@
     <span>Read More</span>
   </button>
   <div class="content" v-if="isLoading">
-    <div class="group-title">
+    <div class="group-title" style="display: none;">
       <img src="/public/assets/icons/preview.svg" alt="preview" />
     </div>
     <div id="aplayer"></div>
 
-    <div class="group-title">
+    <div class="group-title" style="display: none;">
       <img src="/public/assets/icons/full.svg" alt="full" />
     </div>
-    <div
-      class="daily-meditate"
-      v-for="(id, index) in ids"
-      :key="id"
-      v-show="currentIndex === index"
-    >
-      <iframe
-        style="border-radius: 12px"
-        :src="setSrc(id)"
-        width="100%"
-        height="152"
-        title="Spotify Embed"
-        allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-      >
-      </iframe>
-      <div class="text-center">
+    <div class="text-center">
         <a href="javascript:" @click="prev" :disable="currentIndex === 0">
           previous
         </a>
@@ -42,7 +25,27 @@
           next
         </a>
       </div>
+    <div
+      class="daily-meditate"
+      id="spotify-embed"
+      v-for="(id, index) in ids"
+      :key="id"
+      v-show="currentIndex === index"
+    >
+      <iframe
+        :data-id="id"
+        style="border-radius: 12px"
+        :src="setSrc(id)"
+        width="100%"
+        height="152"
+        title="Spotify Embed"
+        allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+      >
+      </iframe>
     </div>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5nZOAXIqv3p1HVvpCduRE4?utm_source=generator" width="100%" height="352" title="Spotify Playlist" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
   </div>
   <div v-else>LOADING...</div>
 </template>
@@ -56,105 +59,6 @@
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
-}
-button {
-  margin: 20px;
-}
-.custom-btn {
-  width: 130px;
-  height: 40px;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px 25px;
-  font-family: "Lato", sans-serif;
-  font-weight: 500;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  box-shadow:
-    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-  outline: none;
-}
-/* 12 */
-.btn-12 {
-  position: relative;
-  right: 20px;
-  bottom: 20px;
-  border: none;
-  box-shadow: none;
-  width: 130px;
-  height: 40px;
-  line-height: 42px;
-  -webkit-perspective: 230px;
-  perspective: 230px;
-}
-.btn-12 span {
-  background: rgb(0, 172, 238);
-  background: linear-gradient(
-    0deg,
-    rgba(0, 172, 238, 1) 0%,
-    rgba(2, 126, 251, 1) 100%
-  );
-  display: block;
-  position: absolute;
-  width: 130px;
-  height: 40px;
-  box-shadow:
-    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  margin: 0;
-  text-align: center;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
-.btn-12 span:nth-child(1) {
-  box-shadow:
-    -7px -7px 20px 0px #fff9,
-    -4px -4px 5px 0px #fff9,
-    7px 7px 20px 0px #0002,
-    4px 4px 5px 0px #0001;
-  -webkit-transform: rotateX(90deg);
-  -moz-transform: rotateX(90deg);
-  transform: rotateX(90deg);
-  -webkit-transform-origin: 50% 50% -20px;
-  -moz-transform-origin: 50% 50% -20px;
-  transform-origin: 50% 50% -20px;
-}
-.btn-12 span:nth-child(2) {
-  -webkit-transform: rotateX(0deg);
-  -moz-transform: rotateX(0deg);
-  transform: rotateX(0deg);
-  -webkit-transform-origin: 50% 50% -20px;
-  -moz-transform-origin: 50% 50% -20px;
-  transform-origin: 50% 50% -20px;
-}
-.btn-12:hover span:nth-child(1) {
-  box-shadow:
-    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-  -webkit-transform: rotateX(0deg);
-  -moz-transform: rotateX(0deg);
-  transform: rotateX(0deg);
-}
-.btn-12:hover span:nth-child(2) {
-  box-shadow:
-    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5),
-    7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-  color: transparent;
-  -webkit-transform: rotateX(-90deg);
-  -moz-transform: rotateX(-90deg);
-  transform: rotateX(-90deg);
 }
 </style>
 
@@ -239,11 +143,11 @@ export default {
             "Bearer " + localStorage.getItem("access_token_spotify"),
         },
       };
-
+      
       await fetch(`${url}/shows/${idWeb5ngay}`, payload)
         .then((response) => response.json())
         .then((data) => {
-          new APlayer({
+         const player = new APlayer({
             container: document.getElementById("aplayer"),
             mini: false,
             autoplay: false,
@@ -266,6 +170,7 @@ export default {
 
           const ids = data.episodes.items.map((item) => item.id);
           this.ids = ids;
+          return player;
         })
         .catch((error) => {
           this.isLoading = false;
