@@ -7,7 +7,7 @@
     <div class="group-title" style="display: none;">
       <img src="/public/assets/icons/preview.svg" alt="preview" />
     </div>
-    <div id="aplayer"></div>
+    <div id="aplayer" style="display: none;"></div>
 
     <div class="group-title" style="display: none;">
       <img src="/public/assets/icons/full.svg" alt="full" />
@@ -45,7 +45,6 @@
       >
       </iframe>
     </div>
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/5nZOAXIqv3p1HVvpCduRE4?utm_source=generator" width="100%" height="352" title="Spotify Playlist" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
   </div>
   <div v-else>LOADING...</div>
 </template>
